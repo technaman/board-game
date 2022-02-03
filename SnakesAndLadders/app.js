@@ -4,7 +4,7 @@ const app = express();
 app.get('/', (req, res) => {
     res.send('Under Development. Please stay tuned !!');
 });
-const port = process.env.PORT || 3000;
-app.listen(port, () => {
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
     console.log(`Listening on PORT ${PORT}`);
 });
