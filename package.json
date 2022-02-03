@@ -1,0 +1,18 @@
+{
+  "name": "boardgames",
+  "version": "0.1.0",
+  "description": "Board Games Backend",
+  "main": "app.js",
+  "scripts": {
+    "start": "node SnakesAndLadders/app",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Naman Garg",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.2",
+    "jest": "^27.4.7",
+    "sequelize": "^6.15.0",
+    "supertest": "^6.2.2"
+  }
+}
