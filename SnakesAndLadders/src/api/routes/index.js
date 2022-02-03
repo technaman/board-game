@@ -1,6 +1,10 @@
 const express = require('express');
 const router = express.Router();
 
+app.get('/', (req, res) => {
+    res.send('Under Development. Please stay tuned !!');
+});
+
 router.post('/login', (req, res) => {
     res.send('Login successful');
 });
