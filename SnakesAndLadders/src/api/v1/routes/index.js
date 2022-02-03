@@ -13,12 +13,4 @@ router.post('/signup', (req, res) => {
     res.send('Signup successful');
 });
 
-router.get('/initGame', (req, res) => {
-    res.send('Game initialized');
-});
-
-router.post('/startGame', (req, res) => {
-    res.send('Game started');
-});
-
 module.exports = router;

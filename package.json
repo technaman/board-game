@@ -4,6 +4,7 @@
   "description": "Board Games Backend",
   "main": "app.js",
   "scripts": {
+    "dev": "nodemon SnakesAndLadders/app",
     "start": "node SnakesAndLadders/app",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -13,9 +14,13 @@
     "express": "^4.17.2",
     "jest": "^27.4.7",
     "sequelize": "^6.15.0",
-    "supertest": "^6.2.2"
+    "supertest": "^6.2.2",
+    "uuid": "^8.3.2"
   },
   "engines": {
     "node": "16.x"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.15"
   }
 }
