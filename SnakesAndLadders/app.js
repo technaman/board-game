@@ -25,8 +25,8 @@ app.post('*', (req, res, next) => {
 });
 
 app.use((err, req, res, next) => {
-    const message = 'Something went wrong';
-    res.status(500).json({
+    const message = err.message || 'Something went wrong';
+    res.status(400).json({
         message, data: {}
     });
 });

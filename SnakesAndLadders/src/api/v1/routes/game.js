@@ -5,20 +5,19 @@ const {v4 : uuidv4} = require('uuid');
 const db = require('../../db/db');
 
 /**
- *    Creates a new game id
+ *    Creates a new game
  *    params:
  *      - userId
  *    Returns:
- *      - 200
- *      - gameId
- *      - playerId
+ *      - 201
+ *      - game
  */
 
 router.post('/host', (req, res) => {
     const {userId} = req.body;    
     const game = db.createGame(userId);    
     const message = 'Game initialized';
-    res.json({'data': game, message});
+    res.status(201).json({'data': game, message});
 });
 
 /**
@@ -46,15 +45,34 @@ router.post('/join', (req, res) => {
 
 router.post('/start', (req, res) => {
     const {userId, playerId, gameId} = req.body;
-    // check if user is part of the game - only then he can start
-    
+    // check if user is part of the game - only then he can start    
     const game = db.getGame(gameId);
     if(game == null) {
         const message = 'Invalid game Id';
-        return res.json({message, data:{}});
+        return res.status(400).json({message, data:{}});
+    }    
+    if(game.start(playerId) == false) {
+        const message = 'Invalid Player. Not part of this game.';
+        return res.status(400).json({message, data: {}});
     }
-    game.start();
     const message = 'Game started';    
+    res.json({message, data: {}});
+});
+
+
+router.post('/end', (req, res) => {
+    const {userId, playerId, gameId} = req.body;
+    // check if user is part of the game - only then he can start    
+    const game = db.getGame(gameId);
+    if(game == null) {
+        const message = 'Invalid game Id';
+        return res.status(400).json({message, data:{}});
+    }    
+    if(game.end(playerId) == false) {
+        const message = 'Invalid Player. Not part of this game.';
+        return res.status(400).json({message, data: {}});
+    }
+    const message = 'Game Ended';    
     res.json({message, data: {}});
 });
 
@@ -76,9 +94,15 @@ router.post('/move',(req, res) => {
         const message = 'Invalid move.';    
         return res.json({'data': {gameId, playerId}, message});
     };
-    // Save new move in the board
-    const message = 'Move successful'
-    res.json({'data': {gameId, playerId}, message});
+    const game = db.getGame(gameId);
+    if(game.move(cellNumber, playerId)) {
+        const message = 'Move successful'
+        res.json({'data': {gameId, game, playerId}, message});
+    } else {
+        const message = 'Invalid move.';
+        res.json({'data': {gameId, playerId}, message});
+    }
+    // Save new move in the board    
 });
 
 module.exports = router;
